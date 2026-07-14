@@ -3,6 +3,7 @@ import TopBar from './components/TopBar';
 import MediaLibrary from './components/MediaLibrary';
 import AIGeneratePanel from './components/AIGeneratePanel';
 import AvatarPanel from './components/AvatarPanel';
+import VoiceoverPanel from './components/VoiceoverPanel';
 import Preview from './components/Preview';
 import Timeline from './components/Timeline';
 import Inspector from './components/Inspector';
@@ -10,7 +11,7 @@ import ExportDialog from './components/ExportDialog';
 import SettingsDialog from './components/SettingsDialog';
 import { useProjectStore } from './store/projectStore';
 
-type LeftTab = 'media' | 'ai' | 'avatar';
+type LeftTab = 'media' | 'ai' | 'voice' | 'avatar';
 
 export default function App() {
   const [tab, setTab] = useState<LeftTab>('media');
@@ -48,12 +49,16 @@ export default function App() {
             <button className={tab === 'ai' ? 'tab active' : 'tab'} onClick={() => setTab('ai')}>
               ✨ AI Video
             </button>
+            <button className={tab === 'voice' ? 'tab active' : 'tab'} onClick={() => setTab('voice')}>
+              🎙 Voice
+            </button>
             <button className={tab === 'avatar' ? 'tab active' : 'tab'} onClick={() => setTab('avatar')}>
               🧑‍🎤 Avatar
             </button>
           </nav>
           {tab === 'media' && <MediaLibrary />}
           {tab === 'ai' && <AIGeneratePanel />}
+          {tab === 'voice' && <VoiceoverPanel />}
           {tab === 'avatar' && <AvatarPanel />}
         </aside>
         <main className="center-panel">

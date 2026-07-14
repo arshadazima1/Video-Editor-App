@@ -116,7 +116,7 @@ export interface ExportProgress {
 // AI generation
 // ---------------------------------------------------------------------------
 
-export type AiVideoProvider = 'replicate' | 'runway' | 'stability';
+export type AiVideoProvider = 'comfyui' | 'replicate' | 'runway' | 'stability';
 export type AvatarProvider = 'heygen' | 'did';
 
 export interface AiVideoRequest {
@@ -170,6 +170,13 @@ export interface AppSettings {
   didApiKey: string;
   /** Font file used for burned-in text when exporting. */
   drawTextFontFile: string;
+  /** Local ComfyUI server (free, runs models on your own GPU). */
+  comfyUiUrl: string;
+  /**
+   * ComfyUI workflow in API format with {{PROMPT}}, {{WIDTH}}, {{HEIGHT}},
+   * {{SEED}} placeholders. Empty = built-in Stable Diffusion text-to-image.
+   */
+  comfyUiWorkflow: string;
 }
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -179,4 +186,21 @@ export const DEFAULT_SETTINGS: AppSettings = {
   heygenApiKey: '',
   didApiKey: '',
   drawTextFontFile: 'C:/Windows/Fonts/arialbd.ttf',
+  comfyUiUrl: 'http://127.0.0.1:8188',
+  comfyUiWorkflow: '',
 };
+
+// ---------------------------------------------------------------------------
+// Local text-to-speech (free, offline — Windows built-in voices)
+// ---------------------------------------------------------------------------
+
+export interface TtsVoice {
+  name: string;
+}
+
+export interface TtsRequest {
+  text: string;
+  voiceName?: string;
+  /** Speaking rate, -10 (slow) .. 10 (fast), 0 = normal. */
+  rate?: number;
+}

@@ -10,6 +10,7 @@ import type {
 } from '../shared/types';
 import { mediaUrlFor } from './mediaRegistry';
 import { probeMedia } from './probe';
+import { generateWithComfyUi } from './comfyui';
 
 const POLL_INTERVAL_MS = 3000;
 const POLL_TIMEOUT_MS = 15 * 60 * 1000;
@@ -76,6 +77,8 @@ export async function generateAiVideo(
   outDir: string,
 ): Promise<GeneratedMedia> {
   switch (request.provider) {
+    case 'comfyui':
+      return generateWithComfyUi(request, settings, outDir);
     case 'replicate':
       return generateWithReplicate(request, settings, outDir);
     case 'runway':

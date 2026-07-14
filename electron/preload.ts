@@ -5,6 +5,7 @@ import type {
   AvatarRequest,
   ExportProgress,
   ExportRequest,
+  TtsRequest,
 } from '../shared/types';
 
 const api = {
@@ -33,6 +34,9 @@ const api = {
   generateAvatarVideo: (request: AvatarRequest) => ipcRenderer.invoke('avatar:generate', request),
   listAvatars: (provider: string) => ipcRenderer.invoke('avatar:listAvatars', provider),
   listVoices: (provider: string) => ipcRenderer.invoke('avatar:listVoices', provider),
+
+  listTtsVoices: () => ipcRenderer.invoke('tts:listVoices'),
+  generateTts: (request: TtsRequest) => ipcRenderer.invoke('tts:generate', request),
 };
 
 export type ElectronApi = typeof api;

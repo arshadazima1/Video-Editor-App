@@ -80,6 +80,10 @@ export default function AvatarPanel() {
 
   return (
     <div className="panel-body">
+      <p className="hint">
+        These providers are paid services. 🆓 Free alternative: generate narration in the 🎙 Voice tab and place a
+        photo of your presenter over it on the timeline.
+      </p>
       <label className="field">
         <span>Provider</span>
         <select value={provider} onChange={(e) => setProvider(e.target.value as AvatarProvider)}>

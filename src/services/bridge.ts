@@ -7,6 +7,8 @@ import type {
   ExportProgress,
   ExportRequest,
   GeneratedMedia,
+  TtsRequest,
+  TtsVoice,
 } from '../../shared/types';
 import { DEFAULT_SETTINGS } from '../../shared/types';
 
@@ -32,6 +34,8 @@ export interface Bridge {
   generateAvatarVideo(request: AvatarRequest): Promise<GeneratedMedia>;
   listAvatars(provider: string): Promise<AvatarListItem[]>;
   listVoices(provider: string): Promise<AvatarVoice[]>;
+  listTtsVoices(): Promise<TtsVoice[]>;
+  generateTts(request: TtsRequest): Promise<GeneratedMedia>;
 }
 
 declare global {
@@ -87,6 +91,10 @@ const browserBridge: Bridge = {
   },
   listAvatars: async () => [],
   listVoices: async () => [],
+  listTtsVoices: async () => [],
+  generateTts: async () => {
+    throw new Error('Voiceover uses Windows text-to-speech and needs the desktop app. Run "npm start".');
+  },
 };
 
 export const bridge: Bridge = window.api ?? browserBridge;

@@ -44,6 +44,27 @@ export default function SettingsDialog({ onClose }: { onClose: () => void }) {
             <small>{hint}</small>
           </label>
         ))}
+        <h3 className="inspector-section">🆓 ComfyUI (free local generation)</h3>
+        <label className="field">
+          <span>ComfyUI server URL</span>
+          <input
+            value={settings.comfyUiUrl}
+            onChange={(e) => setSettings({ ...settings, comfyUiUrl: e.target.value })}
+            placeholder="http://127.0.0.1:8188"
+          />
+          <small>Install ComfyUI free from comfy.org and keep it running — no API key needed.</small>
+        </label>
+        <label className="field">
+          <span>Custom workflow (API JSON, optional)</span>
+          <textarea
+            rows={4}
+            value={settings.comfyUiWorkflow}
+            onChange={(e) => setSettings({ ...settings, comfyUiWorkflow: e.target.value })}
+            placeholder='Paste a ComfyUI "Export (API)" JSON with {{PROMPT}} as the positive prompt…'
+          />
+          <small>Empty = built-in Stable Diffusion 1.5 image workflow. Use an LTX-Video/Wan workflow for video.</small>
+        </label>
+
         <label className="field">
           <span>Font file for exported text</span>
           <input

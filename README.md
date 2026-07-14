@@ -16,6 +16,10 @@ Built with Electron + React + TypeScript, rendering through a bundled FFmpeg (no
 - Text overlays with font size, color, position, and background box
 - Canvas formats: Reel 9:16, Facebook 4:5, Square 1:1, Landscape 16:9
 
+**Free features — no API key, no cost**
+- 🎙 **Voiceover tab**: script → narration audio using the voices built into Windows (offline)
+- 🆓 **ComfyUI provider**: prompt → image/video generated locally on your own GPU (see below)
+
 **AI generation (✨ AI Video tab)**
 - **Replicate** — text-to-video (Wan 2.2 by default; use any Replicate video model, e.g. Kling, Hunyuan)
 - **Runway** — text-to-video via the Runway dev API
@@ -55,7 +59,36 @@ npm run dist      # produces an NSIS installer under release/
 > `npm run dev` alone opens the editor in a browser — handy for playing with the timeline,
 > but AI generation and export need the Electron app (`npm start`).
 
-## API keys
+## Free local AI (no API keys, no subscription)
+
+Everything below costs nothing and runs entirely on your PC:
+
+**1. Voiceover — works on any Windows PC, zero setup.**
+Open the **🎙 Voice** tab, pick a voice, type your script, Generate. The narration lands on
+the audio track. Install more voices under Windows Settings → Time & language → Speech.
+
+**2. Images & video from prompts — needs an NVIDIA GPU (8 GB+ VRAM recommended).**
+
+1. Install **ComfyUI** (free, open source): download the Windows portable build from
+   https://www.comfy.org/download, unzip, run `run_nvidia_gpu.bat`.
+2. Download a model once (also free), e.g.:
+   - Images: *Stable Diffusion 1.5* (`v1-5-pruned-emaonly.safetensors`) into `ComfyUI/models/checkpoints/`
+     — this works with the app's built-in workflow out of the box.
+   - Video: *LTX-Video* or *Wan 2.1* — follow the model's ComfyUI guide, build the workflow
+     in ComfyUI, set the positive prompt text to `{{PROMPT}}`, use **Export (API)**, and paste
+     the JSON into the app's ⚙ Settings → "Custom workflow".
+3. Keep ComfyUI running, open the **✨ AI Video** tab, choose **ComfyUI (local, free)**, prompt away.
+
+**3. Free "avatar" recipe (no lip sync).**
+Generate a voiceover in the 🎙 Voice tab, import a presenter photo, stretch the photo clip over
+the narration, add a text headline and a fade-in. For real lip-synced talking heads without paying,
+look into running SadTalker or Wav2Lip locally (Python + GPU setup, more involved).
+
+Quality note: free local models are behind the paid cloud models (Veo, Kling, HeyGen), and
+generation speed depends on your GPU. The paid providers below remain available if you ever
+want them — but nothing in the app requires them.
+
+## API keys (optional — only for paid cloud providers)
 
 Open **⚙ Settings** in the top bar and paste keys for the providers you want (all optional):
 

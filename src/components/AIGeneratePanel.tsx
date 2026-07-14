@@ -4,7 +4,8 @@ import { useProjectStore } from '../store/projectStore';
 import { newAssetId, loadAssetMetadata } from '../services/assets';
 import type { AiVideoProvider } from '../../shared/types';
 
-const PROVIDERS: Array<{ id: AiVideoProvider; label: string; kind: 'video' | 'image'; defaultModel: string }> = [
+const PROVIDERS: Array<{ id: AiVideoProvider; label: string; kind: 'video' | 'image' | 'media'; defaultModel: string }> = [
+  { id: 'comfyui', label: '🆓 ComfyUI (local, free — your own GPU)', kind: 'media', defaultModel: '' },
   { id: 'replicate', label: 'Replicate — text to video (Wan, Kling, …)', kind: 'video', defaultModel: 'wan-video/wan-2.2-t2v-fast' },
   { id: 'runway', label: 'Runway — text to video', kind: 'video', defaultModel: 'veo3' },
   { id: 'stability', label: 'Stability AI — text to image', kind: 'image', defaultModel: '' },
@@ -20,7 +21,7 @@ const ASPECTS = [
 export default function AIGeneratePanel() {
   const addAssets = useProjectStore((s) => s.addAssets);
   const addClipFromAsset = useProjectStore((s) => s.addClipFromAsset);
-  const [provider, setProvider] = useState<AiVideoProvider>('replicate');
+  const [provider, setProvider] = useState<AiVideoProvider>('comfyui');
   const [model, setModel] = useState('');
   const [prompt, setPrompt] = useState('');
   const [aspect, setAspect] = useState('9:16');
@@ -136,7 +137,15 @@ export default function AIGeneratePanel() {
 
       {status && <p className="hint hint-ok">{status}</p>}
       {error && <p className="hint hint-error">{error}</p>}
-      <p className="hint">API keys are configured in Settings (⚙ in the top bar).</p>
+      {provider === 'comfyui' ? (
+        <p className="hint">
+          🆓 No API key and no cost — generations run on your own GPU via ComfyUI. Install it once from comfy.org
+          (free), keep it running, and this panel sends prompts to it. Point to a custom workflow in ⚙ Settings for
+          video models like LTX-Video or Wan. See the README section “Free local AI” for setup.
+        </p>
+      ) : (
+        <p className="hint">This provider is paid and needs an API key in Settings (⚙ in the top bar).</p>
+      )}
     </div>
   );
 }

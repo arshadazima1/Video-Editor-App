@@ -5,6 +5,8 @@ import { runExport, cancelExport } from './ffmpegExport';
 import { generateAiVideo, generateAvatarVideo, listAvatars, listVoices } from './aiProviders';
 import { loadSettings, saveSettings } from './settings';
 import { probeMedia } from './probe';
+import { generateTts, listTtsVoices } from './tts';
+import type { TtsRequest } from '../shared/types';
 import { allowMediaPath, isMediaPathAllowed, mediaUrlFor, generatedMediaDir } from './mediaRegistry';
 import type { AiVideoRequest, AvatarRequest, ExportRequest, AppSettings } from '../shared/types';
 
@@ -151,4 +153,7 @@ function registerIpc(): void {
   );
   ipcMain.handle('avatar:listAvatars', (_event, provider: string) => listAvatars(provider, loadSettings()));
   ipcMain.handle('avatar:listVoices', (_event, provider: string) => listVoices(provider, loadSettings()));
+
+  ipcMain.handle('tts:listVoices', () => listTtsVoices());
+  ipcMain.handle('tts:generate', (_event, request: TtsRequest) => generateTts(request, generatedMediaDir()));
 }
