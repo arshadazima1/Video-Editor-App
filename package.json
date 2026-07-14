@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "AI-powered desktop video editor for Windows - timeline editing, prompt-to-video generation, and AI avatars",
   "private": true,
-  "main": "dist-electron/main.js",
+  "main": "dist-electron/electron/main.js",
   "author": "AI Video Studio",
   "scripts": {
     "dev": "vite",

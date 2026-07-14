@@ -35,7 +35,7 @@ function createWindow(): void {
     void mainWindow.loadURL(devUrl);
     mainWindow.webContents.openDevTools({ mode: 'detach' });
   } else {
-    void mainWindow.loadFile(path.join(__dirname, '..', 'dist', 'index.html'));
+    void mainWindow.loadFile(path.join(__dirname, '..', '..', 'dist', 'index.html'));
   }
 }
 
